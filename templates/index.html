@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Secure Password Strength Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<body>
+
+
+    <main class="container">
+
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <header class="hero">
+
+            <p class="eyebrow">
+                PASSWORD SECURITY TOOL
+            </p>
+
+            <h1>
+                Secure Password<br>
+                Strength Analyzer
+            </h1>
+
+            <p class="subtitle">
+                Analyze password characteristics and discover ways
+                to improve your password security.
+            </p>
+
+        </header>
+
+
+
+        <!-- =========================
+             PASSWORD INPUT
+        ========================== -->
+
+        <section class="panel">
+
+            <h2>
+                Analyze your password
+            </h2>
+
+            <p class="muted">
+                Enter a test password below. Do not use a real,
+                sensitive password.
+            </p>
+
+
+            <form method="POST">
+
+                <label for="password">
+                    Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter a test password"
+                    autocomplete="off"
+                    required
+                >
+
+
+                <button type="submit">
+                    Analyze Password →
+                </button>
+
+            </form>
+
+
+            <!-- ERROR MESSAGE -->
+
+            {% if results and results.error %}
+
+                <p class="error">
+                    {{ results.error }}
+                </p>
+
+            {% endif %}
+
+        </section>
+
+
+
+        <!-- =========================
+             RESULTS
+        ========================== -->
+
+        {% if results and not results.error %}
+
+        <section class="panel results {{ results.strength|lower|replace(' ', '-') }}">
+
+
+            <!-- RESULT HEADING -->
+
+            <div class="result-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        ANALYSIS COMPLETE
+                    </p>
+
+                    <h2>
+                        Your Results
+                    </h2>
+
+                </div>
+
+
+                <span class="strength {{ results.strength|lower|replace(' ', '-') }}">
+
+                    {% if results.strength == "Weak" %}
+
+                        ⚠ {{ results.strength }}
+
+                    {% elif results.strength == "Moderate" %}
+
+                        ⚡ {{ results.strength }}
+
+                    {% elif results.strength == "Strong" %}
+
+                        ✓ {{ results.strength }}
+
+                    {% else %}
+
+                        🛡 {{ results.strength }}
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- =========================
+                 SCORE / ENTROPY / LENGTH
+            ========================== -->
+
+            <div class="score-card">
+
+
+                <div>
+
+                    <span class="muted">
+                        Project strength score
+                    </span>
+
+                    <h3>
+                        {{ results.score }}
+                        <small>/ 10</small>
+                    </h3>
+
+                </div>
+
+
+                <div>
+
+                    <span class="muted">
+                        Estimated entropy
+                    </span>
+
+                    <h3>
+                        {{ results.entropy }}
+                        <small>bits</small>
+                    </h3>
+
+                </div>
+
+
+                <div>
+
+                    <span class="muted">
+                        Password length
+                    </span>
+
+                    <h3>
+                        {{ results.length }}
+                        <small>characters</small>
+                    </h3>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 STRENGTH METER
+            ========================== -->
+
+            <div class="strength-meter">
+
+
+                <div class="meter-label">
+
+                    <span>
+                        Strength level
+                    </span>
+
+                    <strong>
+                        {{ results.score }}/10
+                    </strong>
+
+                </div>
+
+
+                <div class="meter">
+
+                    <div class="meter-fill score-{{ results.score }}"></div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 CHARACTER COMPOSITION
+            ========================== -->
+
+            <h3>
+                Character composition
+            </h3>
+
+
+            <div class="checks">
+
+
+                <div class="check-row">
+
+                    <span>
+                        Lowercase letters
+                    </span>
+
+                    <strong>
+                        {{ "Yes" if results.has_lowercase else "No" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="check-row">
+
+                    <span>
+                        Uppercase letters
+                    </span>
+
+                    <strong>
+                        {{ "Yes" if results.has_uppercase else "No" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="check-row">
+
+                    <span>
+                        Numbers
+                    </span>
+
+                    <strong>
+                        {{ "Yes" if results.has_digit else "No" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="check-row">
+
+                    <span>
+                        Special characters
+                    </span>
+
+                    <strong>
+                        {{ "Yes" if results.has_special else "No" }}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 PATTERN DETECTION
+            ========================== -->
+
+            <h3>
+                Pattern detection
+            </h3>
+
+
+            <div class="checks">
+
+
+                <div class="check-row">
+
+                    <span>
+                        Common password match
+                    </span>
+
+                    <strong>
+                        {{ "Detected" if results.common else "Not detected" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="check-row">
+
+                    <span>
+                        Sequential pattern
+                    </span>
+
+                    <strong>
+                        {{ "Detected" if results.sequential else "Not detected" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="check-row">
+
+                    <span>
+                        Repeated characters
+                    </span>
+
+                    <strong>
+                        {{ "Detected" if results.repeated else "Not detected" }}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 RECOMMENDATIONS
+            ========================== -->
+
+            <h3>
+                Recommendations
+            </h3>
+
+
+            <ul class="recommendations">
+
+                {% for recommendation in results.recommendations %}
+
+                    <li>
+                        {{ recommendation }}
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+
+
+            <!-- =========================
+                 DISCLAIMER
+            ========================== -->
+
+            <p class="disclaimer">
+
+                This tool uses educational heuristics and a simplified
+                entropy estimate. It cannot guarantee password security.
+
+            </p>
+
+
+        </section>
+
+        {% endif %}
+
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer>
+
+            Secure Password Strength Analyzer · Academic Project
+
+        </footer>
+
+
+    </main>
+
+
+</body>
+
+</html>

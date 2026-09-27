@@ -1,0 +1,726 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: "Trebuchet MS", Arial, sans-serif;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.035), transparent 28%),
+        radial-gradient(circle at 80% 70%, rgba(120, 130, 150, 0.035), transparent 30%),
+        #08090c;
+
+    color: #ffffff;
+
+    line-height: 1.6;
+
+    position: relative;
+}
+
+
+
+/* =========================
+   BACKGROUND DESIGN
+   ========================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(100, 160, 255, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 160, 255, 0.055) 1px, transparent 1px);
+
+    background-size: 45px 45px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+}
+
+
+/* =========================
+   MAIN CONTAINER
+   ========================= */
+
+.container {
+    width: min(760px, 92%);
+
+    margin: 0 auto;
+
+    padding: 55px 0 25px;
+
+    position: relative;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.hero {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+
+.eyebrow {
+    color: #144c9b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+
+h1 {
+    font-size: clamp(32px, 5vw, 48px);
+
+    line-height: 1.1;
+
+    margin: 12px 0;
+
+    color: #ffffff;
+}
+
+
+.subtitle {
+    max-width: 540px;
+
+    margin: 0 auto;
+
+    color: #a6a6a6;
+}
+
+
+.muted {
+    color: #999999;
+}
+
+
+/* =========================
+   PANELS
+   ========================= */
+
+.panel {
+    background: rgba(12, 12, 12, 0.94);
+
+    border: 1px solid #292929;
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.6);
+
+    backdrop-filter: blur(6px);
+}
+
+
+.panel:hover {
+    border-color: #144c9b;
+}
+
+
+h2 {
+    margin-top: 0;
+
+    color: #ffffff;
+}
+
+
+/* =========================
+   INPUT FORM
+   ========================= */
+
+label {
+    display: block;
+
+    font-weight: 600;
+
+    margin: 20px 0 8px;
+
+    color: #eeeeee;
+}
+
+
+input {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid #333333;
+
+    background: #050505;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-family: inherit;
+}
+
+
+input:focus {
+    outline: 2px solid #144c9b;
+
+    border-color: #144c9b;
+}
+
+
+button {
+    width: 100%;
+
+    margin-top: 16px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #144c9b;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+button:hover {
+    background: #144c9b;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   RESULTS HEADER
+   ========================= */
+
+.result-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+.strength {
+    padding: 9px 16px;
+
+    border-radius: 999px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* WEAK */
+
+.strength.weak {
+    color: #ff4d4d;
+
+    background: #180505;
+
+    border: 1px solid #b91c1c;
+}
+
+
+/* MODERATE */
+
+.strength.moderate {
+    color: #ffb347;
+
+    background: #1b1004;
+
+    border: 1px solid #d97706;
+}
+
+
+/* STRONG */
+
+.strength.strong {
+    color: #064e3b;
+
+    background: #d1fae5;
+
+    border: 1px solid #6ee7c3;
+}
+
+
+/* VERY STRONG */
+
+.strength.very-strong {
+    color: #064e3b;
+
+    background: #b7f7df;
+
+    border: 1px solid #4ade80;
+}
+
+
+/* =========================
+   SCORE CARDS
+   ========================= */
+
+.score-card {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin: 24px 0;
+}
+
+
+.score-card > div {
+    padding: 16px;
+
+    border-radius: 12px;
+
+    background: #080808;
+
+    border: 1px solid #252525;
+
+    overflow-wrap: anywhere;
+}
+
+
+.score-card h3 {
+    font-size: 23px;
+
+    margin: 8px 0 0;
+
+    color: #ffffff;
+}
+
+
+.score-card small {
+    font-size: 12px;
+
+    color: #888888;
+
+    font-weight: 400;
+}
+
+
+/* =========================
+   STRENGTH METER
+   ========================= */
+
+.strength-meter {
+    margin: 22px 0 28px;
+}
+
+
+.meter-label {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+
+    color: #999999;
+
+    font-size: 14px;
+}
+
+
+.meter-label strong {
+    color: #ffffff;
+}
+
+
+.meter {
+    width: 100%;
+
+    height: 12px;
+
+    background: #080808;
+
+    border: 1px solid #292929;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+}
+
+
+.meter-fill {
+    height: 100%;
+
+    border-radius: 999px;
+
+    transition: width 0.5s ease;
+
+    background: #3b82f6;
+}
+
+
+.meter-fill.score-0 {
+    width: 0%;
+}
+
+
+.meter-fill.score-1 {
+    width: 10%;
+}
+
+
+.meter-fill.score-2 {
+    width: 20%;
+}
+
+
+.meter-fill.score-3 {
+    width: 30%;
+}
+
+
+.meter-fill.score-4 {
+    width: 40%;
+}
+
+
+.meter-fill.score-5 {
+    width: 50%;
+}
+
+
+.meter-fill.score-6 {
+    width: 60%;
+}
+
+
+.meter-fill.score-7 {
+    width: 70%;
+}
+
+
+.meter-fill.score-8 {
+    width: 80%;
+}
+
+
+.meter-fill.score-9 {
+    width: 90%;
+}
+
+
+.meter-fill.score-10 {
+    width: 100%;
+}
+
+.results.weak .meter-fill {
+    background: #dc2626;
+}
+
+
+.results.moderate .meter-fill {
+    background: #d97706;
+}
+
+
+.results.strong .meter-fill {
+    background: #20a77a;
+}
+
+
+.results.very-strong .meter-fill {
+    background: #2ecc71;
+}
+
+/* =========================
+   RESULT SECTIONS
+   ========================= */
+
+.results h3 {
+    margin-top: 26px;
+
+    color: #ffffff;
+}
+
+
+.checks {
+    border: 1px solid #292929;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+
+.check-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    border-bottom: 1px solid #292929;
+}
+
+
+.check-row:last-child {
+    border-bottom: none;
+}
+
+
+.check-row strong {
+    text-align: right;
+
+    color: #ffffff;
+}
+
+
+/* =========================
+   RECOMMENDATIONS
+   ========================= */
+
+.recommendations {
+    padding-left: 22px;
+}
+
+
+.recommendations li {
+    padding: 5px 0;
+
+    color: #dddddd;
+}
+
+
+/* =========================
+   ERROR
+   ========================= */
+
+.error {
+    color: #ff4d4d;
+
+    margin-bottom: 0;
+}
+
+
+/* =========================
+   DISCLAIMER
+   ========================= */
+
+.disclaimer {
+    margin-top: 28px;
+
+    padding-top: 16px;
+
+    border-top: 1px solid #292929;
+
+    font-size: 12px;
+
+    color: #777777;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+    text-align: center;
+
+    padding: 16px;
+
+    color: #666666;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 520px) {
+
+    .container {
+        padding-top: 30px;
+    }
+
+
+    .panel {
+        padding: 18px;
+    }
+
+
+    .score-card {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================
+   DYNAMIC PAGE THEMES
+   ========================= */
+
+
+/* =========================
+   WEAK
+   ========================= */
+
+.results.weak {
+    background: #140606;
+
+    border: 1px solid #8f1d1d;
+
+    box-shadow:
+        0 0 25px rgba(180, 0, 0, 0.12);
+}
+
+
+/* =========================
+   MODERATE
+   ========================= */
+
+.results.moderate {
+    background: #151006;
+
+    border: 1px solid #9a6414;
+
+    box-shadow:
+        0 0 25px rgba(190, 120, 0, 0.10);
+}
+
+
+/* =========================
+   STRONG
+   ========================= */
+
+.results.strong {
+    background: #061512;
+
+    border: 1px solid #16866c;
+
+    box-shadow:
+        0 0 25px rgba(22, 134, 108, 0.12);
+}
+
+
+/* =========================
+   VERY STRONG
+   ========================= */
+
+.results.very-strong {
+    background: #061a12;
+
+    border: 1px solid #27a86f;
+
+    box-shadow:
+        0 0 28px rgba(39, 168, 111, 0.16);
+}
+
+/* =========================
+   RESULT INNER CARDS
+   ========================= */
+
+.results.weak .score-card > div,
+.results.weak .checks {
+    background: #0d0505;
+    border-color: #4d1717;
+}
+
+
+.results.moderate .score-card > div,
+.results.moderate .checks {
+    background: #0e0a05;
+    border-color: #51350d;
+}
+
+
+.results.strong .score-card > div,
+.results.strong .checks {
+    background: #05100d;
+    border-color: #155443;
+}
+
+
+.results.very-strong .score-card > div,
+.results.very-strong .checks {
+    background: #05130c;
+    border-color: #1d6645;
+}
+
+/* =========================
+   DYNAMIC RESULT BOXES
+   ========================= */
+
+.results.weak {
+    background: #140606;
+
+    border: 1px solid #8f1d1d;
+
+    box-shadow:
+        0 0 25px rgba(180, 0, 0, 0.12);
+}
+
+
+.results.moderate {
+    background: #151006;
+
+    border: 1px solid #9a6414;
+
+    box-shadow:
+        0 0 25px rgba(190, 120, 0, 0.10);
+}
+
+
+.results.strong {
+    background: #061512;
+
+    border: 1px solid #16866c;
+
+    box-shadow:
+        0 0 25px rgba(22, 134, 108, 0.12);
+}
+
+
+.results.very-strong {
+    background: #061a12;
+
+    border: 1px solid #27a86f;
+
+    box-shadow:
+        0 0 28px rgba(39, 168, 111, 0.16);
+}
